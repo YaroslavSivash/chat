@@ -1,6 +1,12 @@
 package main
 
-import "github.com/spf13/viper"
+import (
+	"chat/config"
+	"chat/server"
+	"github.com/labstack/gommon/log"
+	"github.com/spf13/viper"
+)
+
 
 func main() {
 	if err := config.Init(); err != nil {
