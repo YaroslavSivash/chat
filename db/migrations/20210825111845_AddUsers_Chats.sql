@@ -3,11 +3,11 @@
 CREATE TABLE IF NOT EXISTS Users_Chats
 (
     id SERIAL PRIMARY KEY,
-    id_user integer not null,
-    id_chat integer not null,
+    user_id integer not null,
+    chat_id integer not null,
 
-    foreign key (id_user) references Users(id),
-    foreign key (id_chat) references Chats(id)
+    foreign key (user_id) references Users(id),
+    foreign key (chat_id) references Chats(id)
 );
 
 -- +goose Down

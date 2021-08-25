@@ -19,6 +19,9 @@ func NewApp() *App {
 }
 
 func (a *App) Run(port string) error {
+	//RegisterHttpEndPointsUser()
+	//RegisterHttpEndPointsMessage()
+	// RegisterHttpEndPointsChat()
 	err := a.httpServer.Run(port)
 	if err != nil {
 		log.Error(err)
