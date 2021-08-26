@@ -2,9 +2,9 @@ package user
 
 import (
 	"chat/models"
-	"github.com/gin-gonic/gin"
+	"context"
 )
 
 type UseCaseUsers interface {
-	CreateUser(c gin.Context, user *models.UserEntity) (int, error)
+	CreateUser(ctx context.Context, user *models.UserEntity) (int, error)
 }

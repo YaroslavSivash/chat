@@ -10,14 +10,16 @@ import (
 
 func NewDbConnect() (db *pg.DB) {
 	dbconfig := Config{
-		Host:     viper.GetString("db.host"),
-		Port:     viper.GetString("db.port_db"),
-		Username: viper.GetString("db.username"),
+		Host:     viper.GetString("host"),
+		Port:     viper.GetString("port_db"),
+		Username: viper.GetString("username"),
 		Password: os.Getenv("DB_PASSWORD"),
-		DBName:   viper.GetString("db.dbname"),
+		DBName:   viper.GetString("dbname"),
 	}
-	pgDB, _ := dial(dbconfig)
-
+	fmt.Println(dbconfig.Password)
+	fmt.Println("ddd")
+	pgDB, err := dial(dbconfig)
+	fmt.Println(err)
 	fmt.Println("Successful connected to DB!")
 	return pgDB
 }

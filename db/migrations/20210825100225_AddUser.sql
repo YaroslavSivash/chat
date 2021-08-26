@@ -1,6 +1,6 @@
 -- +goose Up
 -- SQL in section 'Up' is executed when this migration is applied
-CREATE TABLE IF NOT EXISTS Users
+CREATE TABLE IF NOT EXISTS users
 (
     id SERIAL PRIMARY KEY,
     username varchar unique not null,
@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS Users
 
 -- +goose Down
 -- SQL section 'Down' is executed when this migration is rolled back
-DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS users;

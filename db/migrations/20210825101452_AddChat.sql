@@ -1,6 +1,6 @@
 -- +goose Up
 -- SQL in section 'Up' is executed when this migration is applied
-CREATE TABLE IF NOT EXISTS Chats
+CREATE TABLE IF NOT EXISTS chats
 (
     id SERIAL PRIMARY KEY,
     name varchar unique not null ,
@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS Chats
 
 -- +goose Down
 -- SQL section 'Down' is executed when this migration is rolled back
-DROP TABLE IF EXISTS Chats;
+DROP TABLE IF EXISTS chats;

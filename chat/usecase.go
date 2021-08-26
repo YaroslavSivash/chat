@@ -2,10 +2,10 @@ package chat
 
 import (
 	"chat/models"
-	"github.com/gin-gonic/gin"
+	"context"
 )
 
 type UseCaseChat interface {
-	CreateChat(c gin.Context, chat *models.ChatEntity) (int, error)
-	GetAllChatUserID(c gin.Context, user *models.UserEntity) (*[]models.ChatEntity, error)
+	CreateChat(ctx context.Context, chat *models.ChatEntity) (int, error)
+	GetAllChatUserID(ctx context.Context, user *models.UserEntity) (*[]models.ChatEntity, error)
 }

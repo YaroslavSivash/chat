@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterHttpEndPointsUser(c gin.Engine, us user.UseCaseUsers) {
+func RegisterHttpEndPointsUser(c *gin.Engine, us user.UseCaseUsers) {
 	h := NewHandlerUser(us)
 
 	user := c.Group("/users")
