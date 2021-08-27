@@ -14,9 +14,10 @@ func NewDbConnect() (db *pg.DB) {
 		Port:     viper.GetString("port_db"),
 		Username: viper.GetString("username"),
 		Password: os.Getenv("DB_PASSWORD"),
-		DBName:   viper.GetString("dbname"),
+		DBName:   viper.GetString("db_name"),
 	}
 	fmt.Println(dbconfig.Password)
+	fmt.Println(dbconfig.DBName)
 	fmt.Println("ddd")
 	pgDB, err := dial(dbconfig)
 	fmt.Println(err)

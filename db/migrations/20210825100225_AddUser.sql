@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS users
 (
     id SERIAL PRIMARY KEY,
     username varchar unique not null,
-    created_at timestamp
+    created_at timestamptz DEFAULT now()
 
 );
 
