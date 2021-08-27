@@ -3,7 +3,7 @@ package postgres
 import (
 	"chat/models"
 	"context"
-	"github.com/go-pg/pg"
+	"github.com/go-pg/pg/v10"
 )
 
 type MessageRepository struct {

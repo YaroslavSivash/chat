@@ -19,6 +19,6 @@ func NewChatUseCase(repo chat.ChatRepository) *ChatUseCase {
 func (u *ChatUseCase) CreateChat(ctx context.Context, chat *models.ChatEntity) (int, error) {
 	return u.repo.CreateChatDB(ctx, chat)
 }
-func (u *ChatUseCase) GetAllChatUserIDDB(ctx context.Context, user *models.UserEntity) (*[]models.ChatEntity, error) {
+func (u *ChatUseCase) GetAllChatUserID(ctx context.Context, user *models.UserEntity) (*[]models.ChatEntity, error) {
 	return u.repo.GetAllChatUserIDDB(ctx, user)
 }

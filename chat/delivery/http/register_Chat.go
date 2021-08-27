@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterHttpEndPointsChat(c gin.Engine, ch chat.UseCaseChat) {
+func RegisterHttpEndPointsChat(c *gin.Engine, ch chat.UseCaseChat) {
 	h := NewHandlerChat(ch)
 
 	chats := c.Group("/chats")

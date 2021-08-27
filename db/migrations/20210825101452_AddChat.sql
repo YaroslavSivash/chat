@@ -3,8 +3,8 @@
 CREATE TABLE IF NOT EXISTS chats
 (
     id SERIAL PRIMARY KEY,
-    name varchar unique not null ,
-    created_at timestamp
+    name varchar unique not null,
+    created_at timestamptz DEFAULT now()
 );
 
 -- +goose Down

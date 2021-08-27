@@ -16,9 +16,15 @@ func NewHandlerMessage(useCase message.UseCaseMessage) *Handler {
 }
 
 func (h *Handler) SendMessage(c *gin.Context) {
-	return
+
 }
 
 func (h *Handler) GetAllMessageChatID(c *gin.Context) {
 	return
+}
+
+type CreateMessage struct {
+	ChatID string `json:"chat"`
+	UserID string `json:"author"`
+	Text   string `json:"text"`
 }

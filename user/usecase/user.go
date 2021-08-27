@@ -11,7 +11,9 @@ type UserUseCase struct {
 }
 
 func NewUserUseCase(repo user.UserReository) *UserUseCase {
-	return &UserUseCase{repo: repo}
+	return &UserUseCase{
+		repo: repo,
+	}
 }
 
 func (u *UserUseCase) CreateUser(ctx context.Context, user *models.UserEntity) (int, error) {

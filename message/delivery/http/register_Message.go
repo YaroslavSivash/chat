@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterHttpEndPointsMessage(c gin.Engine, ms message.UseCaseMessage) {
+func RegisterHttpEndPointsMessage(c *gin.Engine, ms message.UseCaseMessage) {
 	h := NewHandlerMessage(ms)
 
 	message := c.Group("/message")

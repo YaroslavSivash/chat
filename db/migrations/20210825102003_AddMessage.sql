@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS message
     chat_id integer not null ,
     author_id integer not null ,
     text varchar not null ,
-    created_at timestamp,
+    created_at timestamptz DEFAULT now(),
 
     foreign key (chat_id) references chats(id),
     foreign key (author_id) references users(id)
