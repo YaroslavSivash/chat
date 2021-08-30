@@ -26,6 +26,7 @@ func (h *Handler) CreateChat(c *gin.Context) {
 		log.Error(err)
 		c.String(http.StatusBadRequest, "cannot read json")
 	}
+
 	chatID, err := h.useCase.CreateChat(c, &models.ChatEntity{Name: chatJson.Name, Users: chatJson.Users})
 	if err != nil {
 		log.Error(err)
@@ -45,7 +46,7 @@ func (h *Handler) GetAllChatUserID(c *gin.Context) {
 	fmt.Println(userJson.UserID)
 	if err != nil {
 		log.Error(err)
-		c.String(http.StatusBadRequest, "invalid json")
+		c.String(http.StatusBadRequest, "Not correct json")
 	}
 	userdata, err := h.useCase.GetAllChatUserID(c, &models.UserEntity{Id: userID})
 	if err != nil {

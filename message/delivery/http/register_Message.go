@@ -8,7 +8,7 @@ import (
 func RegisterHttpEndPointsMessage(c *gin.Engine, ms message.UseCaseMessage) {
 	h := NewHandlerMessage(ms)
 
-	message := c.Group("/message")
+	message := c.Group("/messages")
 	{
 		message.POST("/add", h.SendMessage)
 		message.POST("/get", h.GetAllMessageChatID)

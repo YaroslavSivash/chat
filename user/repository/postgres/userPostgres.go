@@ -3,6 +3,7 @@ package postgres
 import (
 	"chat/models"
 	"context"
+	"github.com/labstack/gommon/log"
 
 	"github.com/go-pg/pg/v10"
 	"time"
@@ -21,6 +22,9 @@ func NewUserRepository(db *pg.DB) *UserRepository {
 func (r *UserRepository) CreateUserDB(ctx context.Context, user *models.UserEntity) (int, error) {
 	newUser := &Users{UserName: user.UserName}
 	_, err := r.db.Model(newUser).Insert()
+	if err != nil {
+		log.Error(err)
+	}
 
 	return newUser.Id, err
 }
