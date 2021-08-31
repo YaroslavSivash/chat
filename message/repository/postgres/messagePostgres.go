@@ -35,11 +35,12 @@ func (r *MessageRepository) GetAllMessageChatIDDB(ctx context.Context, chat *mod
 
 	mes := &[]Message{}
 
-	err := r.db.Model(mes).OrderExpr("created_at ASC").Where("chat_id = ?", chat.Id)
+	err := r.db.Model(mes).OrderExpr("created_at DESC").Where("chat_id = ?", chat.Id).Select()
 	if err != nil {
 		log.Error(err)
 		return nil, errors.New("something wrong")
 	}
+
 	allMes := []models.MessageEntity{}
 	for _, message := range *mes {
 		chatString := strconv.Itoa(message.Chat)
@@ -52,6 +53,7 @@ func (r *MessageRepository) GetAllMessageChatIDDB(ctx context.Context, chat *mod
 			CreatedAt: message.CreatedAt,
 		})
 	}
+
 	return &allMes, nil
 }
 
