@@ -76,6 +76,15 @@ func AddUserChats(tx *pg.Tx, userID []int, chatID int) error {
 }
 func (r *ChatRepository) GetAllChatUserIDDB(ctx context.Context, user *models.UserEntity) (*[]models.ChatEntity, error) {
 
+	usrChats := &UsersChats{}
+
+	log.Info(user.Id)
+
+	err := r.db.Model(usrChats).Where("user_id = ?", user.Id).Select("chat_id")
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
 	return nil, nil
 }
 
