@@ -20,6 +20,7 @@ func NewChatRepository(db *pg.DB) *ChatRepository {
 	}
 }
 func (r *ChatRepository) CreateChatDB(ctx context.Context, chat *models.ChatEntity) (int, error) {
+
 	intSlice := make([]int, len(chat.Users), len(chat.Users))
 
 	for i, user := range chat.Users {
@@ -30,37 +31,43 @@ func (r *ChatRepository) CreateChatDB(ctx context.Context, chat *models.ChatEnti
 		}
 		intSlice[i] = temp
 	}
-	//
-	tempChats := &Chats{Name: chat.Name}
-	//err := r.db.Model(tempChats).Where("name= ?", chat.Name).Select()
-	//if err != nil {
-	//	return 0, errors.New("this name is exist")
-	//}
 
-	tx, _ := r.db.Begin()
-
-	_, err := tx.Model(tempChats).Returning("*").Insert()
+	tx, err := r.db.Begin()
 	if err != nil {
-		return 0, errors.New("cannot add chat")
+		log.Error(err)
+		return 0, err
 	}
 
-	// Make sure to close transaction if something goes wrong.
+	defer tx.Close()
 
-	if err := addUsersChats(tx, &intSlice, tempChats.Id); err != nil {
+	tempChats := &Chats{Name: chat.Name}
+	log.Info(chat.Name)
+	_, err = r.db.Model(tempChats).Insert()
+	if err != nil {
+		log.Error(err)
+		return 0, err
+	}
+
+	if err := AddUserChats(tx, intSlice, tempChats.Id); err != nil {
 		// Rollback on error.
 		_ = tx.Rollback()
-		return 0, errors.New("error")
+		log.Error(err)
+		return 0, err
 	}
 
 	// Commit on success.
 	if err := tx.Commit(); err != nil {
 		log.Error(err)
+		return 0, err
 	}
-	return tempChats.Id, nil
+
+	return tempChats.Id, err
 }
-func addUsersChats(tx *pg.Tx, users *[]int, ChatID int) error {
-	for _, user := range *users {
-		if err := tx.Model(UsersChats{UserID: user, ChatID: ChatID}).Select(); err != nil {
+
+func AddUserChats(tx *pg.Tx, userID []int, chatID int) error {
+	for _, user := range userID {
+		log.Info(chatID)
+		if _, err := tx.Model(&UsersChats{UserID: user, ChatID: chatID}).Insert(); err != nil {
 			log.Error(err)
 			return nil
 		}
@@ -68,6 +75,7 @@ func addUsersChats(tx *pg.Tx, users *[]int, ChatID int) error {
 	return nil
 }
 func (r *ChatRepository) GetAllChatUserIDDB(ctx context.Context, user *models.UserEntity) (*[]models.ChatEntity, error) {
+
 	return nil, nil
 }
 
@@ -82,6 +90,5 @@ type Chats struct {
 	tableName struct{}  `pg:"chats,alias:chats"`
 	Id        int       `pg:"id,pk"`
 	Name      string    `pg:"name,notnull"`
-	Users     []string  `pg:"users,notnull"`
 	CreatedAt time.Time `pg:"default:now()"`
 }
